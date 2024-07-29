@@ -14,6 +14,11 @@ interface ContactDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertContacts(contacts: List<ContactEntity>)
 
-    @Delete
-    suspend fun deleteContacts(contacts: List<ContactEntity>)
+//    @Delete
+//    suspend fun deleteContacts(contacts: List<ContactEntity>)
+
+
+    @Query("DELETE  FROM contacts WHERE contacts.phoneNumber in "phone""  )
+    suspend fun deleteContact(phone: String)
+
 }

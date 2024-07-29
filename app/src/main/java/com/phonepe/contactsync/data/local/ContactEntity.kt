@@ -8,5 +8,7 @@ data class ContactEntity(
     @PrimaryKey val phoneNumber: String,
     val name: String,
     val profilePicture: String?, // Store URI as String
-    val dob: String?
+    val dob: String?,
+    val syncedWithServer : Boolean,
+    val isDeleted : Boolean
 )

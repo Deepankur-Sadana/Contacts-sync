@@ -7,14 +7,21 @@ import com.phonepe.contactsync.domain.model.DeviceContact
 import java.net.URI
 import javax.inject.Inject
 
+interface IDeviceContactProvider {
+    fun getDeviceContacts(
+        orderBy: DeviceContactProvider.OrderBy,
+        count: Int,
+        offset: Int
+    ): List<DeviceContact>
+}
 class DeviceContactProvider @Inject constructor(
     private val contentResolver: ContentResolver
-) {
+) : IDeviceContactProvider{
     enum class OrderBy {
         NAME, PHONE_NUMBER
     }
 
-    fun getDeviceContacts(orderBy: OrderBy, count: Int, offset: Int): List<DeviceContact> {
+    override fun getDeviceContacts(orderBy: OrderBy, count: Int, offset: Int): List<DeviceContact> {
         val contacts = mutableListOf<DeviceContact>()
         val sortOrder = when (orderBy) {
             OrderBy.NAME -> "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
